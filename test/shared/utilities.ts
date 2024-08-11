@@ -39,11 +39,12 @@ export function getCreate2Address(
   bytecode: string
 ): string {
   const [token0, token1] = tokenA < tokenB ? [tokenA, tokenB] : [tokenB, tokenA]
+  const initHash = keccak256(bytecode)
   const create2Inputs = [
     '0xff',
     factoryAddress,
     keccak256(solidityPack(['address', 'address'], [token0, token1])),
-    keccak256(bytecode)
+    initHash
   ]
   const sanitizedInputs = `0x${create2Inputs.map(i => i.slice(2)).join('')}`
   return getAddress(`0x${keccak256(sanitizedInputs).slice(-40)}`)

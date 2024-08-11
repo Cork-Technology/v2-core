@@ -1,12 +1,13 @@
 import { Contract, Wallet } from 'ethers'
+import * as ethers from 'ethers'
 import { Web3Provider } from 'ethers/providers'
 import { deployContract } from 'ethereum-waffle'
 
 import { expandTo18Decimals } from './utilities'
 
 import ERC20 from '../../build/ERC20.json'
-import UniswapV2Factory from '../../build/UniswapV2Factory.json'
-import UniswapV2Pair from '../../build/UniswapV2Pair.json'
+import UniswapV2Factory from '../../buildV2/UniswapV2Factory.json'
+import UniswapV2Pair from '../../buildV2/UniswapV2Pair.json'
 
 interface FactoryFixture {
   factory: Contract
@@ -17,7 +18,13 @@ const overrides = {
 }
 
 export async function factoryFixture(_: Web3Provider, [wallet]: Wallet[]): Promise<FactoryFixture> {
-  const factory = await deployContract(wallet, UniswapV2Factory, [wallet.address], overrides)
+  const factory = await deployContract(
+    wallet,
+    UniswapV2Factory,
+    // random address
+    [wallet.address, '0x08eF1E62c44056C154373e6BBa22dBf916e885E2'],
+    overrides
+  )
   return { factory }
 }
 
