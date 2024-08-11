@@ -16,6 +16,8 @@ const TEST_ADDRESSES: [string, string] = [
   '0x2000000000000000000000000000000000000000'
 ]
 
+const PAIR_INIT_HASH = '0x5c87746a2eb1543638713c28ef503a3fbd0ece66ac212050b62aac3cadd358c0'
+
 describe('UniswapV2Factory', () => {
   const provider = new MockProvider({
     hardfork: 'istanbul',
@@ -65,10 +67,15 @@ describe('UniswapV2Factory', () => {
     await createPair(TEST_ADDRESSES.slice().reverse() as [string, string])
   })
 
+  it('correct init hash', async () => {
+    const hash = await factory.PAIR_INIT_CODE_HASH()
+    expect(hash).to.eq(PAIR_INIT_HASH)
+  })
+
   it('createPair:gas', async () => {
     const tx = await factory.createPair(...TEST_ADDRESSES)
     const receipt = await tx.wait()
-    expect(receipt.gasUsed).to.eq(2512920)
+    expect(receipt.gasUsed).to.eq(2564731)
   })
 
   it('setFeeTo', async () => {
