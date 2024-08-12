@@ -49,4 +49,6 @@ interface IUniswapV2Pair {
     function sync() external;
 
     function initialize(address, address, address) external;
+
+    function dsFlashSwapRouter() external view returns (address);
 }

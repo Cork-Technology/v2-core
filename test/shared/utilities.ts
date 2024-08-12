@@ -40,6 +40,9 @@ export function getCreate2Address(
 ): string {
   const [token0, token1] = tokenA < tokenB ? [tokenA, tokenB] : [tokenB, tokenA]
   const initHash = keccak256(bytecode)
+
+  console.log(initHash);
+  
   const create2Inputs = [
     '0xff',
     factoryAddress,

@@ -16,7 +16,7 @@ const TEST_ADDRESSES: [string, string] = [
   '0x2000000000000000000000000000000000000000'
 ]
 
-const PAIR_INIT_HASH = '0x5c87746a2eb1543638713c28ef503a3fbd0ece66ac212050b62aac3cadd358c0'
+const PAIR_INIT_HASH = '0xd9becdfc30bbec341fd5a35ce5e24a7bef2f3d0bff4d43b5f8bf4e1528966ff8'
 
 describe('UniswapV2Factory', () => {
   const provider = new MockProvider({
@@ -75,7 +75,7 @@ describe('UniswapV2Factory', () => {
   it('createPair:gas', async () => {
     const tx = await factory.createPair(...TEST_ADDRESSES)
     const receipt = await tx.wait()
-    expect(receipt.gasUsed).to.eq(2564731)
+    expect(receipt.gasUsed).to.eq(2562117)
   })
 
   it('setFeeTo', async () => {

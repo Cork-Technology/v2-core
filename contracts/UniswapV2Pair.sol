@@ -192,12 +192,8 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
             if (feeApplied()) {
                 balance0Adjusted -= amount0In.mul(3);
                 balance1Adjusted -= amount1In.mul(3);
-            } else {
-                // disable fees if the caller is the flash swap router
-                balance0Adjusted -= amount0In;
-                balance1Adjusted -= amount1In;
             }
-
+            
             require(
                 balance0Adjusted.mul(balance1Adjusted) >= uint(_reserve0).mul(_reserve1).mul(1000 ** 2),
                 'UniswapV2: K'
